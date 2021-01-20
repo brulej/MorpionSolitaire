@@ -67,6 +67,14 @@ class MorpionSolitaireComputerPanel extends JPanel implements ActionListener {
 						if (grid.possibleMoves().isEmpty()) {
 							end_of_game = true;
 							repaint();
+							HistoryManager blop = new HistoryManager("C:\\Users\\jer91\\OneDrive\\Bureau\\test.xlsx");
+							try {
+								blop.saveScore("ordinateur", score);
+						    	} catch (FileNotFoundException e) {
+						        	e.printStackTrace();
+						    	} catch (IOException e) {
+						        	e.printStackTrace();
+						    	}		
 							break;
 						}
 

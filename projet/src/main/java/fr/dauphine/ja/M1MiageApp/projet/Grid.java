@@ -218,7 +218,6 @@ class Grid {
 		int r = Math.round((y - origY) / cellSize);
 		int c = Math.round((x - origX) / cellSize);
 
-		// see if inside active area
 		if (c < minC || c > maxC || r < minR || r > maxR)
 			return Result.KO;
 
@@ -252,7 +251,6 @@ class Grid {
 			playerMoves.put(new Point(c, r), score);
 			return Result.OK;
 		} else if (candidates.size() > 1) {
-			// we can make more than one line
 			points[r][c] |= ORIG;
 			for (Choice ch : candidates) {
 				List<Point> cand = ch.points;
@@ -318,7 +316,6 @@ class Grid {
 		points[p1.y][p1.x] |= dir[1];
 		points[p2.y][p2.x] |= dir[1];
 
-		//lines.add(new Line(p1, p2));
 
 		if (state == 0){
 			computerLines.add(new Line(p1, p2));
@@ -332,8 +329,7 @@ class Grid {
 		for (Point p : line)
 			points[p.y][p.x] |= dir[0];
 
-		// growable active area
-		minC = Math.min(p1.x - 1, Math.min(p2.x - 1, minC));
+				minC = Math.min(p1.x - 1, Math.min(p2.x - 1, minC));
 		maxC = Math.max(p1.x + 1, Math.max(p2.x + 1, maxC));
 		minR = Math.min(p1.y - 1, Math.min(p2.y - 1, minR));
 		maxR = Math.max(p1.y + 1, Math.max(p2.y + 1, maxR));

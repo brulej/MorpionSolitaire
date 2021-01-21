@@ -43,7 +43,7 @@ class MorpionSolitairePlayerPanel extends JPanel implements ActionListener {
 		setPreferredSize(new Dimension(1000, 750));
 		setBackground(Color.white);
 		setLayout(null);
-		System.out.print("nom in classmorp: " + name);
+
 		home_button = new JButton("Retour");
 		home_button.addActionListener(this);
 		home_button.setBounds(500, 20, 80, 30);

@@ -24,19 +24,19 @@ import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
 
 public class HistoryManager {
 	
-	File Fichier; 
+	File historyFile; 
 	DateFormat DATE = DateFormat.getDateTimeInstance(
             DateFormat.SHORT,
             DateFormat.SHORT);
 	
 	//Constructor
-	public HistoryManager(String chemin) {
-		this.Fichier = new File(chemin); 
+	public HistoryManager(String historyFilePath) {
+		this.historyFile = new File(historyFilePath); 
 	}
 	
-	public void saveScore (String nom, int score, String game_version) throws IOException {
+	public void saveScore (String name, int score, String gameVersion) throws IOException {
 		// workbook creation
-		FileInputStream fileStream = new FileInputStream(this.Fichier);
+		FileInputStream fileStream = new FileInputStream(this.historyFile);
 		XSSFWorkbook workbook = new XSSFWorkbook(fileStream);
 		XSSFSheet sheet = workbook.getSheetAt(0);
 		
@@ -46,28 +46,27 @@ public class HistoryManager {
 		cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("d/m/yy h.mm;@"));
 		
 		// find number of lines so the line where we want to write the record
-		int last =sheet.getPhysicalNumberOfRows ();
-		XSSFRow row = sheet.createRow(last);
+		int lastRow =sheet.getPhysicalNumberOfRows ();
+		XSSFRow row = sheet.createRow(lastRow);
 		
 		// Name Insertion 
-		XSSFCell cellname = row.createCell(0);
-		cellname.setCellValue(nom);
-		System.out.println("nom in history: " +nom);
+		XSSFCell cellName = row.createCell(0);
+		cellName.setCellValue(name);
+
 		// Date insertion 
-		XSSFCell celldate = row.createCell(1);
-		celldate.setCellValue(new Date());
-		celldate.setCellStyle(cellStyle);
+		XSSFCell cellDate = row.createCell(1);
+		cellDate.setCellValue(new Date());
+		cellDate.setCellStyle(cellStyle);
 		
 		// Score insertion 
-		XSSFCell cellscore = row.createCell(2);
-		cellscore.setCellValue(score);
-		System.out.println("score: " +score);
+		XSSFCell cellScore = row.createCell(2);
+		cellScore.setCellValue(score);
+
 		// Score insertion 
-		XSSFCell cellversion = row.createCell(3);
-		cellversion.setCellValue(game_version);
-		System.out.println("game_version : " + game_version);
+		XSSFCell cellVersion = row.createCell(3);
+		cellVersion.setCellValue(gameVersion);
 		
-	    try (OutputStream fileOut = new FileOutputStream(this.Fichier)) {
+	    try (OutputStream fileOut = new FileOutputStream(this.historyFile)) {
 	    	workbook.write(fileOut);
 	        fileOut.close();
 	    }

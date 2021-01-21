@@ -26,7 +26,6 @@ public class MorpionSolitaire extends JFrame {
 		}
 		
 		setTitle("Morpion Solitaire - version : " + game_version + " - Joueur : " + player_name);
-		
 		pack();
 		setLocationRelativeTo(null);
 	}

@@ -11,6 +11,8 @@ import java.awt.RenderingHints;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -27,6 +29,7 @@ class MorpionSolitaireComputerPanel extends JPanel implements ActionListener {
 
 	private JButton home_button;
 	private Boolean end_of_game = false;
+	private String game_version;
 	Grid grid;
 	String message = "Silence, je reflechis ...";
 	int score;
@@ -46,6 +49,8 @@ class MorpionSolitaireComputerPanel extends JPanel implements ActionListener {
 		scoreFont = new Font("SansSerif", Font.BOLD, 12);
 
 		grid = new Grid(35, 9, game_version);
+		
+		this.game_version=game_version;
 
 		start();
 	}
@@ -61,15 +66,15 @@ class MorpionSolitaireComputerPanel extends JPanel implements ActionListener {
 						Point move = moves.get(rand.nextInt(moves.size()));
 
 						grid.computerMove(move.y, move.x, score + 1);
-
+						
 						score++;
 
 						if (grid.possibleMoves().isEmpty()) {
 							end_of_game = true;
 							repaint();
-							HistoryManager blop = new HistoryManager("C:\\Users\\jer91\\OneDrive\\Bureau\\test.xlsx");
+							HistoryManager historyMngr = new HistoryManager("test.xlsx");
 							try {
-								blop.saveScore("ordinateur", score);
+								historyMngr.saveScore("Ordinateur" , score, game_version);
 						    	} catch (FileNotFoundException e) {
 						        	e.printStackTrace();
 						    	} catch (IOException e) {

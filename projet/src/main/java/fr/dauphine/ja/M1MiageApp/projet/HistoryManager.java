@@ -34,7 +34,7 @@ public class HistoryManager {
 		this.Fichier = new File(chemin); 
 	}
 	
-	public void saveScore (String nom, int score) throws IOException {
+	public void saveScore (String nom, int score, String game_version) throws IOException {
 		// workbook creation
 		FileInputStream fileStream = new FileInputStream(this.Fichier);
 		XSSFWorkbook workbook = new XSSFWorkbook(fileStream);
@@ -52,7 +52,7 @@ public class HistoryManager {
 		// Name Insertion 
 		XSSFCell cellname = row.createCell(0);
 		cellname.setCellValue(nom);
-		
+		System.out.println("nom in history: " +nom);
 		// Date insertion 
 		XSSFCell celldate = row.createCell(1);
 		celldate.setCellValue(new Date());
@@ -61,6 +61,11 @@ public class HistoryManager {
 		// Score insertion 
 		XSSFCell cellscore = row.createCell(2);
 		cellscore.setCellValue(score);
+		System.out.println("score: " +score);
+		// Score insertion 
+		XSSFCell cellversion = row.createCell(3);
+		cellversion.setCellValue(game_version);
+		System.out.println("game_version : " + game_version);
 		
 	    try (OutputStream fileOut = new FileOutputStream(this.Fichier)) {
 	    	workbook.write(fileOut);
@@ -74,17 +79,7 @@ public class HistoryManager {
 		return bestscores;
 	}
 	
-	
-	public static void main(String[] args) {
-		HistoryManager blop = new HistoryManager("C:\\Users\\jer91\\OneDrive\\Bureau\\test.xlsx");
-		try {
-			blop.saveScore("jeje", 11);
-	    } catch (FileNotFoundException e) {
-	        e.printStackTrace();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	}
+
 }
 
 

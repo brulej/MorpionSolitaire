@@ -116,10 +116,13 @@ public class HomePanel extends JPanel implements ActionListener{
 			w.setVisible(false);
 
 		} else if(source == player_button) {
-			if((!player_name.getText().trim().equals(""))) {				
-				System.out.println(player_name.getText());
+
+			if(player_name.getText().trim().equals("")) {				
+				player_name_value = "Guest";
+			}else {
 				player_name_value = player_name.getText();
 			}
+			
 			f = new MorpionSolitaire(1, game_version, player_name_value);
 			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			f.setVisible(true);

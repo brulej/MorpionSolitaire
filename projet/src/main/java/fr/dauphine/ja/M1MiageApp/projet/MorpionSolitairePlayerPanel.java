@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -34,12 +36,14 @@ class MorpionSolitairePlayerPanel extends JPanel implements ActionListener {
 	String message = "A toi de jouer ...";
 	int score = 0;
 	Font scoreFont;
+	private String game_version;
+	private String name;
 
-	public MorpionSolitairePlayerPanel(String game_version) {
+	public MorpionSolitairePlayerPanel(String game_version, String name) {
 		setPreferredSize(new Dimension(1000, 750));
 		setBackground(Color.white);
 		setLayout(null);
-
+		System.out.print("nom in classmorp: " + name);
 		home_button = new JButton("Retour");
 		home_button.addActionListener(this);
 		home_button.setBounds(500, 20, 80, 30);
@@ -50,6 +54,9 @@ class MorpionSolitairePlayerPanel extends JPanel implements ActionListener {
 
 		grid = new Grid(35, 9, game_version);
 		grid.newGame();
+		
+		this.name=name;
+		this.game_version=game_version;
 
 		start();
 	}
@@ -68,6 +75,14 @@ class MorpionSolitairePlayerPanel extends JPanel implements ActionListener {
 
 					if (grid.possibleMoves().isEmpty()) {
 						end_of_game = true;
+						HistoryManager historyMngr = new HistoryManager("test.xlsx");
+						try {
+							historyMngr.saveScore(name, score, game_version);
+					    	} catch (FileNotFoundException exep) {
+					    		exep.printStackTrace();
+					    	} catch (IOException exep) {
+					    		exep.printStackTrace();
+					    	}	
 						repaint();
 					}
 				}

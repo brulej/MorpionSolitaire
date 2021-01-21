@@ -16,14 +16,13 @@ public class MorpionSolitaire extends JFrame {
 
 	public MorpionSolitaire(int i, String game_version, String player_name) {
 		this.player_name = player_name;
-		System.out.println(player_name);
 		Container content = getContentPane();
 		content.setLayout(new BorderLayout());
 		
 		if(i == 0) {
 			content.add(new MorpionSolitaireComputerPanel(game_version), BorderLayout.CENTER);
 		}else{
-			content.add(new MorpionSolitairePlayerPanel(game_version), BorderLayout.CENTER);
+			content.add(new MorpionSolitairePlayerPanel(game_version,player_name), BorderLayout.CENTER);
 		}
 		
 		setTitle("Morpion Solitaire - version : " + game_version + " - Joueur : " + player_name);

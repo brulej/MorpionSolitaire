@@ -33,7 +33,7 @@ public class HistoryManager {
 	public HistoryManager(String historyFilePath) {
 		this.historyFile = new File(historyFilePath); 
 	}
-	
+		
 	public void saveScore (String name, int score, String gameVersion) throws IOException {
 		// workbook creation
 		FileInputStream fileStream = new FileInputStream(this.historyFile);
@@ -48,7 +48,17 @@ public class HistoryManager {
 		// find number of lines so the line where we want to write the record
 		int lastRow =sheet.getPhysicalNumberOfRows ();
 		XSSFRow row = sheet.createRow(lastRow);
+
+		insertRecord ( row, name,  score,  gameVersion ,  cellStyle);
 		
+	    try (OutputStream fileOut = new FileOutputStream(this.historyFile)) {
+	    	workbook.write(fileOut);
+	        fileOut.close();
+	    }  
+	}
+	
+	
+	private void insertRecord (XSSFRow row,String name, int score, String gameVersion , XSSFCellStyle cellStyleDate) {
 		// Name Insertion 
 		XSSFCell cellName = row.createCell(0);
 		cellName.setCellValue(name);
@@ -56,7 +66,7 @@ public class HistoryManager {
 		// Date insertion 
 		XSSFCell cellDate = row.createCell(1);
 		cellDate.setCellValue(new Date());
-		cellDate.setCellStyle(cellStyle);
+		cellDate.setCellStyle(cellStyleDate);
 		
 		// Score insertion 
 		XSSFCell cellScore = row.createCell(2);
@@ -65,11 +75,6 @@ public class HistoryManager {
 		// Score insertion 
 		XSSFCell cellVersion = row.createCell(3);
 		cellVersion.setCellValue(gameVersion);
-		
-	    try (OutputStream fileOut = new FileOutputStream(this.historyFile)) {
-	    	workbook.write(fileOut);
-	        fileOut.close();
-	    }
 	}
 	
 	public HashMap getPodium() {

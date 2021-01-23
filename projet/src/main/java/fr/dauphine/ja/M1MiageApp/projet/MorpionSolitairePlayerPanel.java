@@ -6,18 +6,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.List;
-import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -75,14 +69,14 @@ class MorpionSolitairePlayerPanel extends JPanel implements ActionListener {
 
 					if (grid.possibleMoves().isEmpty()) {
 						end_of_game = true;
-						HistoryManager historyMngr = new HistoryManager("test.xlsx");
+						/**HistoryManager historyMngr = new HistoryManager("test.xlsx");
 						try {
 							historyMngr.saveScore(name, score, game_version);
 					    	} catch (FileNotFoundException exep) {
 					    		exep.printStackTrace();
 					    	} catch (IOException exep) {
 					    		exep.printStackTrace();
-					    	}	
+					    	}	**/
 						repaint();
 					}
 				}

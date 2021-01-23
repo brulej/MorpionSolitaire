@@ -11,10 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.dauphine.ja.M1MiageApp.projet.Grid.Choice;
-import fr.dauphine.ja.M1MiageApp.projet.Grid.Line;
-import fr.dauphine.ja.M1MiageApp.projet.Grid.Result;
-
 class Grid {
 	enum Result {
 		OK, KO, ERROR
@@ -189,13 +185,13 @@ class Grid {
 
 		x = origX + x * cellSize - (pointSize / 2);
 		y = origY + y * cellSize - (pointSize / 2);
-		
+
 		if((p & CAND) != 0) {
 			g.setColor(Color.green);
 		}else {
 			g.setColor(Color.white);
 		}
-		
+
 		g.fillOval(x - 5, y - 5, 20, 20);
 		g.setColor(Color.darkGray);
 		g.drawOval(x - 5, y - 5, 20, 20);
@@ -281,7 +277,7 @@ class Grid {
 			}
 
 			if (result.size() == 5) {
-				if(game_version.equals("5T")) {
+				if(game_version.equals("5D")) {
 					int cpt_5T = 0;
 					cpt_5T = 0;
 					for( Point k : result) {
@@ -290,7 +286,7 @@ class Grid {
 							cpt_5T++;
 						}
 					}
-					if(cpt_5T == 1) {
+					if(cpt_5T <= 1) {
 						candidates.add(new Choice(new ArrayList<Point>(result), new int[]{dir, end}));
 					}
 				} else {
@@ -329,7 +325,7 @@ class Grid {
 		for (Point p : line)
 			points[p.y][p.x] |= dir[0];
 
-				minC = Math.min(p1.x - 1, Math.min(p2.x - 1, minC));
+		minC = Math.min(p1.x - 1, Math.min(p2.x - 1, minC));
 		maxC = Math.max(p1.x + 1, Math.max(p2.x + 1, maxC));
 		minR = Math.min(p1.y - 1, Math.min(p2.y - 1, minR));
 		maxR = Math.max(p1.y + 1, Math.max(p2.y + 1, maxR));

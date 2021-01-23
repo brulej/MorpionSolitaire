@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 public class MorpionSolitaire extends JFrame {
 

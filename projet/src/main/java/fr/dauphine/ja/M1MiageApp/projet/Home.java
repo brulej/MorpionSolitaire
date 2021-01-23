@@ -1,6 +1,5 @@
 package fr.dauphine.ja.M1MiageApp.projet;
 
-import java.awt.BorderLayout;
 import java.awt.Container;
 
 import javax.swing.JFrame;

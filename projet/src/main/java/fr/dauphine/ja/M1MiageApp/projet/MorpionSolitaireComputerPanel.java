@@ -21,10 +21,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+/**
+ * 
+ * This class create a simulation of the game Morpion solitaire
+ *
+ */
 class MorpionSolitaireComputerPanel extends JPanel implements ActionListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	private JButton home_button;
@@ -93,6 +96,7 @@ class MorpionSolitaireComputerPanel extends JPanel implements ActionListener {
 		}).start();
 	}
 
+
 	@Override
 	public void paintComponent(Graphics gg) {
 		super.paintComponent(gg);
@@ -123,6 +127,7 @@ class MorpionSolitaireComputerPanel extends JPanel implements ActionListener {
 		g.drawString(s2, getWidth() - 100, getHeight() - 20);
 		
 	}
+
 
 	@SuppressWarnings("static-access")
 	public void actionPerformed(ActionEvent e) {

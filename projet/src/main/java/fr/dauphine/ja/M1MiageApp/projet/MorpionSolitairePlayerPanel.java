@@ -20,10 +20,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+/**
+ * 
+ * This class create a morpion solitaire for solo player
+ *
+ */
 class MorpionSolitairePlayerPanel extends JPanel implements ActionListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	private JButton home_button;
@@ -124,6 +127,7 @@ class MorpionSolitairePlayerPanel extends JPanel implements ActionListener {
 		String s2 = "Score " + String.valueOf(score);
 		g.drawString(s2, getWidth() - 100, getHeight() - 20);
 	}
+
 
 	@SuppressWarnings("static-access")
 	public void actionPerformed(ActionEvent e) {

@@ -15,7 +15,7 @@ class Grid {
 	enum Result {
 		OK, KO, ERROR
 	}
-
+	// Each int is a hint for the direction of the point 
 	final int EMPTY = 0, POINT = 1, HORI = 2, VERT = 4, DIUP = 8, DIDO = 16,
 			HORI_END = 32, VERT_END = 64, DIUP_END = 128, DIDO_END = 256,
 			CAND = 512, ORIG = 1024, HINT = 2048;
@@ -34,7 +34,12 @@ class Grid {
 	Map<Point, Integer> playerMoves;
 	List<Line> playerLines;
 	String game_version = null;
-
+	
+	/**
+	 * A line is simply a segment between two points
+	 * 
+	 *
+	 */
 	class Line {
 		final Point p1, p2;
 
@@ -43,7 +48,12 @@ class Grid {
 			this.p2 = p2;
 		}
 	}
-
+	/**
+	 * A choice is a list of points with an array of directions.
+	 * In fact, each choice (of the player or the computer) is a succession of points in a specified direction (HORI, VERT...)
+	 * 
+	 *
+	 */
 	class Choice {
 		int[] dir;
 
@@ -66,7 +76,12 @@ class Grid {
 		this.game_version = game_version;
 		newGame();
 	}
-
+	/**
+	 * newGame enables us to initialize :
+	 * 		- a new game with the cross in the middle.
+	 * 		- the computer and the player moves and lines (result of the moves)
+	 * 
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public final void newGame() {
 		for (int r = minR; r < maxR; r++)
@@ -83,13 +98,20 @@ class Grid {
 		playerMoves = new HashMap<Point, Integer>();
 		playerLines = new ArrayList<Line>();
 
-		// cross
+		// drawing the initial cross
 		for (int r = 0; r < 10; r++)
 			for (int c = 0; c < 10; c++)
 				if ((basePoints[r] & (1 << c)) != 0)
 					points[20 + r][20 + c] = POINT;
 	}
-
+	
+	/**
+	 * draw is the method responsible of drawing our grid, the computer or the player moves and the points.
+	 * Parameters : g is the graphic
+	 * 				w: grid width
+	 * 				h: grid height
+	 *
+	 */
 	public void draw(Graphics2D g, int w, int h) {
 		centerX = w / 2;
 		centerY = h / 2;
@@ -141,7 +163,9 @@ class Grid {
 			}
 
 	}
-
+	/**
+	 * drawLines is the method that draws the lines passed in parameter in the color specified
+	 */
 	private void drawLines(List<Line> lines, Graphics2D g, Color color) {
 		if(lines.size() > 0) {
 			for (int i = 0 ; i < lines.size(); i++) {
@@ -155,7 +179,9 @@ class Grid {
 			}
 		}
 	}
-
+	/**
+	 * drawPoint draws the point specified in parameter on the graphic g
+	 */
 	private void drawPoint(Graphics2D g, int x, int y) {
 		g.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		String score = null;
@@ -174,7 +200,9 @@ class Grid {
 		}     
 
 	}
-
+	/**
+	 * drawMove is reponsible for drawing the computer or the player move in the corresponding color.
+	 */
 	private void drawMove(Map<Point, Integer> moves, String score, int x, int y, Graphics2D g, Color color) {
 		FontMetrics fm = g.getFontMetrics();
 		double length_score;
@@ -185,20 +213,19 @@ class Grid {
 
 		x = origX + x * cellSize - (pointSize / 2);
 		y = origY + y * cellSize - (pointSize / 2);
-
-		if((p & CAND) != 0) {
-			g.setColor(Color.green);
-		}else {
-			g.setColor(Color.white);
-		}
-
+		
+		//draw the score 
 		g.fillOval(x - 5, y - 5, 20, 20);
 		g.setColor(Color.darkGray);
 		g.drawOval(x - 5, y - 5, 20, 20);
 		g.setColor(color);
 		g.drawString(score, x - (int) (length_score/2) + 5, y + (fm.getMaxAscent()/2) + 3);
 	}
-
+	
+	/**
+	 * computerMove checks a certain line passed in parameter and add it to the computer moves with the score
+	 * returns Result.OK if the choice is valid otherwise Result.KO 
+	 */
 	public Result computerMove(int r, int c, int score) {
 		checkLines(r, c);
 		if (candidates.size() > 0) {
@@ -209,21 +236,25 @@ class Grid {
 		}
 		return Result.KO;
 	}
-
+	
+	/**
+	 * playerMove is responsible for checking the validity of the player move (close to the grid point, into the area...)
+	 */
 	public Result playerMove(float x, float y, int score) {
+		
+		// approximate the player move 
 		int r = Math.round((y - origY) / cellSize);
 		int c = Math.round((x - origX) / cellSize);
 
 		if (c < minC || c > maxC || r < minR || r > maxR)
 			return Result.KO;
 
-		// only process when mouse click is close enough to grid point
 		int diffX = (int) Math.abs(x - (origX + c * cellSize));
 		int diffY = (int) Math.abs(y - (origY + r * cellSize));
 		if (diffX > cellSize / 5 || diffY > cellSize / 5)
 			return Result.KO;
 
-		// did we have a choice in the previous turn
+		// did we have one choice in the previous turn
 		if ((points[r][c] & CAND) != 0) {
 			Choice choice = choices.get(new Point(c, r));
 			addLine(choice.points, choice.dir, 1);
@@ -261,7 +292,9 @@ class Grid {
 
 		return Result.KO;
 	}
-
+	/**
+	 * checkLine checks the validity of a line in both 5D and 5T strategies
+	 */
 	private void checkLine(int dir, int end, int r, int c, int rIncr, int cIncr) {
 		List<Point> result = new ArrayList<Point>(5);
 		for (int i = -4; i < 1; i++) {
@@ -296,6 +329,9 @@ class Grid {
 		}
 	}
 
+	/**
+	 * checkLines checks a line in different directions
+	 */
 	private void checkLines(int r, int c) {
 		candidates.clear();
 		checkLine(HORI, HORI_END, r, c, 0, 1);
@@ -303,15 +339,16 @@ class Grid {
 		checkLine(DIUP, DIUP_END, r, c, -1, 1);
 		checkLine(DIDO, DIDO_END, r, c, 1, 1);
 	}
-
+	
+	/**
+	 * addLine adds a line to the player or computer lines (it's the result of a move thus a valid line)
+	 */
 	private void addLine(List<Point> line, int[] dir, int state) {
 		Point p1 = line.get(0);
 		Point p2 = line.get(line.size() - 1);
 
-		// mark end points for 5T
 		points[p1.y][p1.x] |= dir[1];
 		points[p2.y][p2.x] |= dir[1];
-
 
 		if (state == 0){
 			computerLines.add(new Line(p1, p2));
@@ -330,7 +367,10 @@ class Grid {
 		minR = Math.min(p1.y - 1, Math.min(p2.y - 1, minR));
 		maxR = Math.max(p1.y + 1, Math.max(p2.y + 1, maxR));
 	}
-
+	
+	/**
+	 * possibleMoves returns a list of points corresponding to the possible and valid moves into the grid.
+	 */
 	public List<Point> possibleMoves() {
 		List<Point> moves = new ArrayList<Point>();
 		for (int r = minR; r < maxR; r++)
@@ -343,7 +383,10 @@ class Grid {
 			}
 		return moves;
 	}
-
+	/**
+	 * showHints may help the player by showing some hints on the possible moves.
+	 * The player should right mouse click to see the hints
+	 */
 	public void showHints() {
 		for (Point p : possibleMoves())
 			points[p.y][p.x] |= HINT;

@@ -101,7 +101,6 @@ public class HomePanel extends JPanel implements ActionListener{
 			JOptionPane.showMessageDialog(this, "Erreur aucun jeu selectionné");
 		}
 
-
 		if(source == computer_button) {
 			f = new MorpionSolitaire(0, game_version, "COMPUTER");
 			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

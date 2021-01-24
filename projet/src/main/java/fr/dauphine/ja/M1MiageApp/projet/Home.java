@@ -4,11 +4,15 @@ import java.awt.Container;
 
 import javax.swing.JFrame;
 
+/**
+ * 
+ *This class represent the frame of the GUI
+ * @extends : JFrame
+ * 
+ **/
+
 public class Home extends JFrame{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private HomePanel panel;
 
@@ -21,6 +25,10 @@ public class Home extends JFrame{
 		setLocationRelativeTo(null);
 	}
 
+	/**
+	 * Open the window
+	 * 
+	 **/
 	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
 		JFrame f = new Home();

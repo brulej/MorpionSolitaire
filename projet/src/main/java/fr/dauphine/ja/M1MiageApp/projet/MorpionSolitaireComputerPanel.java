@@ -28,10 +28,10 @@ class MorpionSolitaireComputerPanel extends JPanel implements ActionListener {
 	private JButton home_button;
 	private Boolean end_of_game = false;
 	private String game_version;
-	Grid grid;
-	String message = "Silence, je reflechis ...";
-	int score;
-	Font scoreFont;
+	private Grid grid;
+	private String message = "Silence, je reflechis ...";
+	private int score;
+	private Font scoreFont;
 
 	public MorpionSolitaireComputerPanel(String game_version) {
 		setPreferredSize(new Dimension(1000, 750));

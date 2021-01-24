@@ -22,10 +22,19 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
 
+/**
+ * 
+ *This class is used to manage an history of scores 
+ *obtained after a game of solitary tic-tac-toe.
+ *
+ *It takes the path of an xls file as a parameter of its constructor.
+ * 
+ **/
+
 public class HistoryManager {
 	
-	File historyFile; 
-	DateFormat DATE = DateFormat.getDateTimeInstance(
+	private final File historyFile; 
+	private DateFormat DATE = DateFormat.getDateTimeInstance(
             DateFormat.SHORT,
             DateFormat.SHORT);
 	
@@ -33,7 +42,20 @@ public class HistoryManager {
 	public HistoryManager(String historyFilePath) {
 		this.historyFile = new File(historyFilePath); 
 	}
-		
+	
+	/**
+	 * This method is used to store informations after an game
+	 * informations are stored in the class parametre "historyfile"
+	 * 
+	 * @param name : A String which correspond to the name of the player or the computeur
+	 * @param score : An int which correspond to the score obtained by the player
+	 * @param gameVersion : A String which correspond to the version of the "solitary tic-tac-to (5D or 5T)
+	 * 
+	 * @throws IOExeption
+	 * 
+	 * @return : void
+	 * 
+	 **/
 	public void saveScore (String name, int score, String gameVersion) throws IOException {
 		// workbook creation
 		FileInputStream fileStream = new FileInputStream(this.historyFile);
@@ -57,7 +79,18 @@ public class HistoryManager {
 	    }  
 	}
 	
-	
+	/**
+	 * This method is used to insert an record in a row of xls file
+	 * 
+	 * @param row : A XXSFRow object which represent the row where the record have to be store
+	 * @param name : A String which correspond to the name of the player or the computeur
+	 * @param score : An int which correspond to the score obtained by the player
+	 * @param gameVersion : A String which correspond to the version of the "solitary tic-tac-to (5D or 5T)
+	 * @param cellStyleDate : A XSSFCellStyle object which represente the date style use to store the current date
+	 * 
+	 * @return : void
+	 * 
+	 **/
 	private void insertRecord (XSSFRow row,String name, int score, String gameVersion , XSSFCellStyle cellStyleDate) {
 		// Name Insertion 
 		XSSFCell cellName = row.createCell(0);
@@ -77,40 +110,5 @@ public class HistoryManager {
 		cellVersion.setCellValue(gameVersion);
 	}
 	
-	public HashMap getPodium() {
-		HashMap bestscores = new HashMap();
-		
-		return bestscores;
-	}
-	
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-XSSFRow row = null;
-XSSFCell cell = null;
-
-for (Iterator rowIt = sheet.rowIterator(); rowIt.hasNext();) {
-   row = (XSSFRow) rowIt.next();
-   for (Iterator cellIt = row.cellIterator(); cellIt.hasNext();) {
-     cell = (XSSFCell) cellIt.next();
-
-   }
-   	      }
- */

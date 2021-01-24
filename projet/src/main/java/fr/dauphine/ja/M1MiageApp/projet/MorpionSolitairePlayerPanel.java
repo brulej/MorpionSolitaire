@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -69,14 +71,14 @@ class MorpionSolitairePlayerPanel extends JPanel implements ActionListener {
 
 					if (grid.possibleMoves().isEmpty()) {
 						end_of_game = true;
-						/**HistoryManager historyMngr = new HistoryManager("test.xlsx");
+						HistoryManager historyMngr = new HistoryManager("history.xlsx");
 						try {
 							historyMngr.saveScore(name, score, game_version);
 					    	} catch (FileNotFoundException exep) {
 					    		exep.printStackTrace();
 					    	} catch (IOException exep) {
 					    		exep.printStackTrace();
-					    	}	**/
+					    	}	
 						repaint();
 					}
 				}

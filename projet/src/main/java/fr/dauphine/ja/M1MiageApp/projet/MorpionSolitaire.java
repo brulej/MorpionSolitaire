@@ -5,11 +5,12 @@ import java.awt.Container;
 
 import javax.swing.JFrame;
 
+/**
+ * This class is used to launch the morpion solitaire game
+ *@extends : JFrame
+ */
 public class MorpionSolitaire extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String player_name=null;
 

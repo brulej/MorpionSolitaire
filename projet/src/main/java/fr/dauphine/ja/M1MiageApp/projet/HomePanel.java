@@ -16,11 +16,15 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+/**
+ * 
+ *This class represent content of the GUI
+ * @extends : JPanel
+ * 
+ **/
+
 public class HomePanel extends JPanel implements ActionListener{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JButton computer_button;
 	private JButton player_button;
@@ -85,6 +89,13 @@ public class HomePanel extends JPanel implements ActionListener{
 		player_button.setBounds(200, 100, size.width, size.height);
 	}
 
+	/**
+	 * 
+	 *This method manage different events on the frame
+	 *@param e: An ActionEvent object which 
+	 *@return : void
+	 * 
+	 **/
 	@SuppressWarnings("static-access")
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();

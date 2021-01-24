@@ -25,7 +25,7 @@ import org.apache.poi.xssf.usermodel.XSSFCreationHelper;
 /**
  * 
  *This class is used to manage an history of scores 
- *obtained after a game of solitary tic-tac-toe.
+ *obtained after a game of morpion solitaire.
  *
  *It takes the path of an xls file as a parameter of its constructor.
  * 
@@ -49,7 +49,7 @@ public class HistoryManager {
 	 * 
 	 * @param name : A String which correspond to the name of the player or the computeur
 	 * @param score : An int which correspond to the score obtained by the player
-	 * @param gameVersion : A String which correspond to the version of the "solitary tic-tac-to (5D or 5T)
+	 * @param gameVersion : A String which correspond to the version of morpion solitaire (5D or 5T)
 	 * 
 	 * @throws IOExeption
 	 * 
@@ -85,8 +85,8 @@ public class HistoryManager {
 	 * @param row : A XXSFRow object which represent the row where the record have to be store
 	 * @param name : A String which correspond to the name of the player or the computeur
 	 * @param score : An int which correspond to the score obtained by the player
-	 * @param gameVersion : A String which correspond to the version of the "solitary tic-tac-to (5D or 5T)
-	 * @param cellStyleDate : A XSSFCellStyle object which represente the date style use to store the current date
+	 * @param gameVersion : A String which correspond to the version of morpion solitaire (5D or 5T)
+	 * @param cellStyleDate : A XSSFCellStyle object which represent the date style use to store the current date
 	 * 
 	 * @return : void
 	 * 

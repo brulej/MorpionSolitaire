@@ -10,7 +10,7 @@ public class Home extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	HomePanel panel;
+	private HomePanel panel;
 
 	public Home(){
 		Container content = getContentPane();

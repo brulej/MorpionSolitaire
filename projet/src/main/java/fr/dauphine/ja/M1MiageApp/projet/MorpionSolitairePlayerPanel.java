@@ -26,10 +26,10 @@ class MorpionSolitairePlayerPanel extends JPanel implements ActionListener {
 
 	private JButton home_button;
 	private Boolean end_of_game = false;
-	Grid grid;
-	String message = "A toi de jouer ...";
-	int score = 0;
-	Font scoreFont;
+	private Grid grid;
+	private String message = "A toi de jouer ...";
+	private int score = 0;
+	private Font scoreFont;
 	private String game_version;
 	private String name;
 

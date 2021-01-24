@@ -88,21 +88,24 @@ class Grid {
 			for (int c = minC; c < maxC; c++)
 				points[r][c] = EMPTY;
 
-		choices = new HashMap<Point, Choice>();
+		choices = new HashMap<>();
 		candidates = new ArrayList();
 		minC = minR = 18;
 		maxC = maxR = 31;
 
-		computerMoves = new HashMap<Point, Integer>();
-		computerLines = new ArrayList<Line>();
-		playerMoves = new HashMap<Point, Integer>();
-		playerLines = new ArrayList<Line>();
+		computerMoves = new HashMap<>();
+		computerLines = new ArrayList<>();
+		playerMoves = new HashMap<>();
+		playerLines = new ArrayList<>();
 
 		// drawing the initial cross
-		for (int r = 0; r < 10; r++)
-			for (int c = 0; c < 10; c++)
-				if ((basePoints[r] & (1 << c)) != 0)
+		for (int r = 0; r < 10; r++) {
+			for (int c = 0; c < 10; c++) {
+				if ((basePoints[r] & (1 << c)) != 0) {
 					points[20 + r][20 + c] = POINT;
+				}
+			}
+		}
 	}
 	
 	/**
@@ -140,7 +143,7 @@ class Grid {
 		drawLines(playerLines, g, Color.blue);
 
 		// points
-		for (int r = minR; r < maxR; r++)
+		for (int r = minR; r < maxR; r++) {
 			for (int c = minC; c < maxC; c++) {
 				int p = points[r][c];
 
@@ -161,6 +164,7 @@ class Grid {
 
 				drawPoint(g, c, r);
 			}
+		}
 
 	}
 	/**
@@ -206,8 +210,6 @@ class Grid {
 	private void drawMove(Map<Point, Integer> moves, String score, int x, int y, Graphics2D g, Color color) {
 		FontMetrics fm = g.getFontMetrics();
 		double length_score;
-		int p = points[y][x];
-
 		score = moves.get(new Point(x, y)).toString();
 		length_score = fm.getStringBounds(score, g).getWidth();
 
@@ -296,7 +298,7 @@ class Grid {
 	 * checkLine checks the validity of a line in both 5D and 5T strategies
 	 */
 	private void checkLine(int dir, int end, int r, int c, int rIncr, int cIncr) {
-		List<Point> result = new ArrayList<Point>(5);
+		List<Point> result = new ArrayList<>(5);
 		for (int i = -4; i < 1; i++) {
 			result.clear();
 			for (int j = 0; j < 5; j++) {
@@ -320,10 +322,10 @@ class Grid {
 						}
 					}
 					if(cpt_5T <= 1) {
-						candidates.add(new Choice(new ArrayList<Point>(result), new int[]{dir, end}));
+						candidates.add(new Choice(new ArrayList<>(result), new int[]{dir, end}));
 					}
 				} else {
-					candidates.add(new Choice(new ArrayList<Point>(result), new int[]{dir, end}));
+					candidates.add(new Choice(new ArrayList<>(result), new int[]{dir, end}));
 				}
 			}
 		}
@@ -372,8 +374,8 @@ class Grid {
 	 * possibleMoves returns a list of points corresponding to the possible and valid moves into the grid.
 	 */
 	public List<Point> possibleMoves() {
-		List<Point> moves = new ArrayList<Point>();
-		for (int r = minR; r < maxR; r++)
+		List<Point> moves = new ArrayList<>();
+		for (int r = minR; r < maxR; r++) {
 			for (int c = minC; c < maxC; c++) {
 				if (points[r][c] == EMPTY) {
 					checkLines(r, c);
@@ -381,6 +383,7 @@ class Grid {
 						moves.add(new Point(c, r));
 				}
 			}
+		}
 		return moves;
 	}
 	/**
